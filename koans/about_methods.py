@@ -34,7 +34,7 @@ class AboutMethods(Koan):
         except Exception as e:
 
             # Note, watch out for parenthesis. They need slashes in front!
-            self.assertMatch("my_global_function() takes exactly 2 arguments (3 given)", e[0])
+            self.assertMatch(r'my_global_function\(\) takes exactly 2 arguments \(3 given\)', e[0])
 
     # ------------------------------------------------------------------
 
