@@ -26,17 +26,36 @@ def triangle(a, b, c):
     :param c:
     :return:
     '''
-    sides = set([a, b, c])
-    sides_copy = sides.copy()
-    if len(sides & sides_copy) == 2:
-        return 'isosceles'
-    elif len(sides & sides_copy) == 1:
+    sides = [a, b, c]
+
+    #test for exceptions
+    if 0 in sides:
+        raise TriangleError
+
+     #sides must actually form a triangle (triangle inequality theorem: c < a + b)
+    sides.sort()
+    if sides[2] > (sides[0]+ sides[1]):
+        raise TriangleError
+
+    #sides must be positive in length
+    if any([x<0 for x in sides]):
+        raise TriangleError
+
+    sides_set = set(sides)
+
+    if len(sides_set) == 1:
         return 'equilateral'
+
     else:
-        return 'scalene'
+        if len(sides_set) == 2:
+            return 'isosceles'
+        else:
+            return 'scalene'
 
 
-
-# Error class used in part 2.  No need to change this code.
 class TriangleError(StandardError):
     pass
+
+
+# triangle(1,2,3)
+# triangle(2,2,2)
